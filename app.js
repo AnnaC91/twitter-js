@@ -2,7 +2,10 @@ const express = require( 'express' );
 const app = express(); // creates an instance of an express application
 const nunjucks = require('nunjucks');
 const routes = require('./routes');
+var bodyParser = require('body-parser')
 
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 
 app.use('/', routes);
 
@@ -22,14 +25,14 @@ app.listen(3000,function(){
     console.log('listening on 3000')
 })
 
-var locals = {
+/*var locals = {
     title: 'An Example',
     people: [
         { name: 'Gandalf'},
         { name: 'Frodo' },
         { name: 'Hermione'}
     ]
-};
+};*/
 nunjucks.configure('views', {noCache: true});
 /*nunjucks.render('index.html', locals, function (err, output) {
     console.log(output);
