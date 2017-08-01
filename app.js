@@ -1,6 +1,10 @@
 const express = require( 'express' );
 const app = express(); // creates an instance of an express application
 const nunjucks = require('nunjucks');
+const routes = require('./routes');
+
+
+app.use('/', routes);
 
 app.use(function (request, response, next) {
     // do your logging here
@@ -9,10 +13,10 @@ app.use(function (request, response, next) {
     next();
 })
 
-app.get('/',function(request,response){
-    const people = [{name: 'Full'}, {name: 'Stacker'}, {name: 'Son'}];
-    response.render( 'index', {title: 'Hall of Fame', people: people} );
-})
+// app.get('/',function(request,response){
+//     const people = [{name: 'Full'}, {name: 'Stacker'}, {name: 'Son'}];
+//     response.render( 'index', {title: 'Hall of Fame', people: people} );
+// })
 
 app.listen(3000,function(){
     console.log('listening on 3000')
@@ -30,6 +34,12 @@ nunjucks.configure('views', {noCache: true});
 /*nunjucks.render('index.html', locals, function (err, output) {
     console.log(output);
 });*/
+
+// app.get ('/stylesheets/style.css', function(req, res, next){
+//     res.sendFile(__dirname + '/public/stylesheets/style.css')
+// }); 
+
+app.use(express.static(__dirname + '/public'))
 
 app.set('view engine', 'html'); // have res.render work with html files
 app.engine('html', nunjucks.render); // when giving html files to res.render, tell it to use nunjucks
