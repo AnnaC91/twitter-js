@@ -8,6 +8,5 @@ router.get('/', function (req, res) {
   res.render( 'index', { tweets: tweets } );
 });
 
-// router.use(express.static('public'))
 
 module.exports = router;
